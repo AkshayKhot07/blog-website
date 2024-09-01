@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import BlogPostForm from "../components/BlogPostForm";
 import { PrivateOutlet } from "../components/PrivateOutlet";
+import BlogCategoryPosts from "../pages/blog-category-posts";
 import BlogPostDetails from "../pages/blog-post-details";
+import BlogTimeLinePosts from "../pages/blog-timeline-posts";
 import Home from "../pages/home";
 
 const Router = () => {
@@ -11,6 +13,11 @@ const Router = () => {
         <Route index element={<Home />} />
         <Route path="blog/:id" element={<BlogPostDetails />} />
         <Route path="blog/create-post" element={<BlogPostForm />} />
+        <Route path="blog/category/:category" element={<BlogCategoryPosts />} />
+        <Route
+          path="blog/timeline/:year/:month"
+          element={<BlogTimeLinePosts />}
+        />
       </Route>
     </Routes>
   );

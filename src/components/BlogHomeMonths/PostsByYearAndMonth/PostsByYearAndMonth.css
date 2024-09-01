@@ -1,0 +1,10 @@
+.blog-year-month {
+  color: #3457d5;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.blog-year-month-anchor {
+  text-decoration: none;
+}

@@ -1,0 +1,13 @@
+.blog-home-midsec {
+  display: flex;
+  gap: 20px;
+}
+
+.blog-home-midsec-posts {
+  flex: 3;
+}
+
+.blog-home-midsec-months {
+  flex: 1;
+  margin-top: 20px;
+}

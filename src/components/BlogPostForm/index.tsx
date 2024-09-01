@@ -1,22 +1,28 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { blogCategoryList } from "../../constants/data";
 import { BlogPostsContext } from "../../context/BlogPostsContext";
+import { createSlug } from "../../utils/createSlug";
 import "./BlogPostForm.css";
 
 interface FormInitialValuesTypes {
   title: string;
+  author: string;
   date: string;
   desp: string;
   content: string;
   category: string;
+  slug: string;
 }
 
 const formInitialValues = {
   title: "",
+  author: "",
   date: "",
   desp: "",
   content: "",
   category: "",
+  slug: "",
 };
 
 const BlogPostForm = () => {
@@ -50,8 +56,10 @@ const BlogPostForm = () => {
 
     if (Object.keys(newErrors).length === 0) {
       console.log("Form submitted successfully!");
-      console.log(formData);
-      setBlogPosts([...blogPosts, formData]);
+      setBlogPosts([
+        ...blogPosts,
+        { ...formData, slug: createSlug(formData.title) },
+      ]);
       navigate("/");
       setFormData(formInitialValues);
     } else {
@@ -66,6 +74,12 @@ const BlogPostForm = () => {
       errors.title = "Title is required";
     } else if (data.title.length < 4) {
       errors.title = "Title must be at least 4 characters long";
+    }
+
+    if (!data.author.trim()) {
+      errors.author = "Author is required";
+    } else if (data.author.length < 4) {
+      errors.author = "Author must be at least 4 characters long";
     }
 
     if (!data.date.trim()) {
@@ -86,11 +100,7 @@ const BlogPostForm = () => {
 
     if (!data.category.trim()) {
       errors.category = "Category is required";
-    } else if (
-      !["World", "Technology", "Design", "Culture", "Business"].includes(
-        data.category
-      )
-    ) {
+    } else if (!blogCategoryList.includes(data.category)) {
       errors.category = "Please select a valid category";
     }
 
@@ -116,10 +126,23 @@ const BlogPostForm = () => {
             )}
           </div>
           <div>
+            <label className="form-label">Author:</label>
+            <input
+              className="form-input"
+              type="text"
+              name="author"
+              value={formData.author}
+              onChange={handleChange}
+            />
+            {errors.author && (
+              <span className="error-message">{errors.author}</span>
+            )}
+          </div>
+          <div>
             <label className="form-label">Date:</label>
             <input
               className="form-input"
-              type="date"
+              type="datetime-local"
               name="date"
               value={formData.date}
               onChange={handleChange}
@@ -165,11 +188,9 @@ const BlogPostForm = () => {
               <option value="" disabled>
                 Select a category
               </option>
-              <option value="World">World</option>
-              <option value="Technology">Technology</option>
-              <option value="Design">Design</option>
-              <option value="Culture">Culture</option>
-              <option value="Business">Business</option>
+              {blogCategoryList?.map((item) => (
+                <option value={item}>{item}</option>
+              ))}
             </select>
             {errors.category && (
               <span className="error-message">{errors.category}</span>

@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   BlogPostsContext,
   BlogPostType,
 } from "../../../context/BlogPostsContext";
+import { formatDateString } from "../../../utils/formatDateString";
 import "./BlogHeroSecPosts.css";
 
 const BlogHeroSecPosts = () => {
@@ -14,9 +15,14 @@ const BlogHeroSecPosts = () => {
   }
   const [blogPosts] = context;
 
-  const blogHeroSecPosts = blogPosts.slice(1, 3);
+  // Sort posts by date descending initially
+  const [blogPostsNew] = useState(() =>
+    [...blogPosts].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    )
+  );
 
-  console.log("blogHeroSecPosts", blogHeroSecPosts);
+  const blogHeroSecPosts = blogPostsNew.slice(1, 3);
 
   return (
     <div className="blog-hsp-card-container">
@@ -29,17 +35,22 @@ const BlogHeroSecPosts = () => {
 
 export default BlogHeroSecPosts;
 
-const BlogHeroSecPostsCard = ({ post }: { post: BlogPostType }) => {
+export const BlogHeroSecPostsCard = ({ post }: { post: BlogPostType }) => {
   return (
     <div className="blog-hsp-card">
       <div className="blog-hsp-card-content">
-        <p className="blog-hsp-card-content-category">{post.category}</p>
+        <a
+          href={`/blog/category/${post.category}`}
+          className="blog-hsp-card-content-category"
+        >
+          <p>{post.category}</p>
+        </a>
         <div>
           <h4>{post.title}</h4>
-          <p>{post.date}</p>
+          <p>{formatDateString(post.date)}</p>
         </div>
         <p>{post.desp}</p>
-        <a href={`/blog/${post.title}`} className="blog-hsp-details">
+        <a href={`/blog/${post.slug}`} className="blog-hsp-details">
           <p>Continue reading</p>
         </a>
       </div>

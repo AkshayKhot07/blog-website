@@ -1,5 +1,11 @@
+import BlogPostDetailsPageComp from "../../components/BlogPostDetailsPageComp";
+
 const BlogPostDetails = () => {
-  return <div>Blog Post Details</div>;
+  return (
+    <div>
+      <BlogPostDetailsPageComp />
+    </div>
+  );
 };
 
 export default BlogPostDetails;

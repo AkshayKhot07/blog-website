@@ -23,3 +23,17 @@
   padding-bottom: 10px;
   border-bottom: 2px solid #dcdcdc;
 }
+
+.blog-details-anchor {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.blog-details-title {
+  width: fit-content;
+}

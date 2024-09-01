@@ -13,6 +13,8 @@ export type BlogPostType = {
   desp: string;
   content: string;
   category: string;
+  author: string;
+  slug: string;
 };
 
 type BlogPostsContextType = [
