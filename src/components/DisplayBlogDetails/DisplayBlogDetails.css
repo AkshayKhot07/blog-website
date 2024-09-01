@@ -1,0 +1,25 @@
+.blog-details-container {
+  padding-bottom: 20px;
+}
+
+.blog-details-date {
+  color: #a9a9a9;
+  font-size: 14px;
+}
+
+.blog-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.blog-details-category {
+  color: #3457d5;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.blog-details-desp {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #dcdcdc;
+}

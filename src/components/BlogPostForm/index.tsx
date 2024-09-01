@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BlogPostsContext } from "../../context/BlogPostsContext";
+import "./BlogPostForm.css";
 
 interface FormInitialValuesTypes {
   title: string;
@@ -19,6 +21,8 @@ const formInitialValues = {
 
 const BlogPostForm = () => {
   const context = useContext(BlogPostsContext);
+  const navigate = useNavigate();
+
   if (!context) {
     throw new Error(
       "BlogPostForm must be used within a BlogPostsContextProvider"
@@ -48,6 +52,7 @@ const BlogPostForm = () => {
       console.log("Form submitted successfully!");
       console.log(formData);
       setBlogPosts([...blogPosts, formData]);
+      navigate("/");
       setFormData(formInitialValues);
     } else {
       console.log("Form submission failed due to validation errors.");
@@ -64,101 +69,134 @@ const BlogPostForm = () => {
     }
 
     if (!data.date.trim()) {
-      errors.date = "date is required";
-    } else if (data.date.length < 4) {
-      errors.date = "date must be at least 4 characters long";
+      errors.date = "Date is required";
     }
 
     if (!data.desp.trim()) {
-      errors.desp = "desp is required";
-    } else if (data.desp.length < 4) {
-      errors.desp = "desp must be at least 4 characters long";
+      errors.desp = "Description is required";
+    } else if (data.desp.length < 10) {
+      errors.desp = "Description must be at least 10 characters long";
     }
 
     if (!data.content.trim()) {
-      errors.content = "content is required";
-    } else if (data.content.length < 4) {
-      errors.content = "content must be at least 4 characters long";
+      errors.content = "Content is required";
+    } else if (data.content.length < 20) {
+      errors.content = "Content must be at least 20 characters long";
     }
 
     if (!data.category.trim()) {
-      errors.category = "category is required";
-    } else if (data.category.length < 4) {
-      errors.category = "category must be at least 4 characters long";
+      errors.category = "Category is required";
+    } else if (
+      !["World", "Technology", "Design", "Culture", "Business"].includes(
+        data.category
+      )
+    ) {
+      errors.category = "Please select a valid category";
     }
 
     return errors;
   };
 
   return (
-    <div className="form-container">
-      <h2 className="form-title">Form Validation</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="form-label">title:</label>
-          <input
-            className="form-input"
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-          />
-          {errors.title && (
-            <span className="error-message">{errors.title}</span>
-          )}
-        </div>
-        <div>
-          <label className="form-label">date:</label>
-          <input
-            className="form-input"
-            type="text"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-          />
-          {errors.date && <span className="error-message">{errors.date}</span>}
-        </div>
-        <div>
-          <label className="form-label">desp:</label>
-          <input
-            className="form-input"
-            type="text"
-            name="desp"
-            value={formData.desp}
-            onChange={handleChange}
-          />
-          {errors.desp && <span className="error-message">{errors.desp}</span>}
-        </div>
-        <div>
-          <label className="form-label">Content:</label>
-          <input
-            className="form-input"
-            type="text"
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
-          />
-          {errors.content && (
-            <span className="error-message">{errors.content}</span>
-          )}
-        </div>
-        <div>
-          <label className="form-label">Category:</label>
-          <input
-            className="form-input"
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-          />
-          {errors.category && (
-            <span className="error-message">{errors.category}</span>
-          )}
-        </div>
-        <button className="submit-button" type="submit">
-          Submit
-        </button>
-      </form>
+    <div className="form-wrapper">
+      <div className="form-container">
+        <h2 className="form-title">Create a Blog Post</h2>
+        <form onSubmit={handleSubmit} className="form-element">
+          <div>
+            <label className="form-label">Title:</label>
+            <input
+              className="form-input"
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+            />
+            {errors.title && (
+              <span className="error-message">{errors.title}</span>
+            )}
+          </div>
+          <div>
+            <label className="form-label">Date:</label>
+            <input
+              className="form-input"
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+            />
+            {errors.date && (
+              <span className="error-message">{errors.date}</span>
+            )}
+          </div>
+          <div>
+            <label className="form-label">Description:</label>
+            <textarea
+              className="form-input form-input-desp"
+              rows={4}
+              name="desp"
+              value={formData.desp}
+              onChange={handleChange}
+            />
+            {errors.desp && (
+              <span className="error-message">{errors.desp}</span>
+            )}
+          </div>
+          <div>
+            <label className="form-label">Content:</label>
+            <textarea
+              className="form-input form-input-content"
+              rows={10}
+              name="content"
+              value={formData.content}
+              onChange={handleChange}
+            />
+            {errors.content && (
+              <span className="error-message">{errors.content}</span>
+            )}
+          </div>
+          <div>
+            <label className="form-label">Category:</label>
+            <select
+              className="form-input"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              <option value="World">World</option>
+              <option value="Technology">Technology</option>
+              <option value="Design">Design</option>
+              <option value="Culture">Culture</option>
+              <option value="Business">Business</option>
+            </select>
+            {errors.category && (
+              <span className="error-message">{errors.category}</span>
+            )}
+          </div>
+          <div className="submit-button-container">
+            <button className="submit-button" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div className="form-instruction">
+        <p>Writing a Great Post Title</p>
+        <ul>
+          <li>
+            Think of your post title as a super short (but compelling!)
+            description — like an overview of the actual post in one short
+            sentence.
+          </li>
+          <li>
+            Use keywords where appropriate to help ensure people can find your
+            post by search.
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

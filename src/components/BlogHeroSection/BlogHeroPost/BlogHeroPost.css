@@ -1,0 +1,32 @@
+.blog-hero-post-container {
+  padding: 30px;
+  background-color: #383838;
+}
+
+.bg-hp-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+
+.blog-hp-title {
+  color: #ffffff;
+  font-style: italic;
+}
+
+.blog-hp-desp {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.blog-hp-details,
+.blog-hp-details:hover,
+.blog-hp-details:focus {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.blog-hp-details p {
+  color: #ffffff;
+}

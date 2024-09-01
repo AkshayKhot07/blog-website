@@ -1,0 +1,25 @@
+.sort-blog-posts {
+  display: flex;
+  gap: 10px;
+}
+
+.sort-blog-posts button {
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 5px 10px;
+  border: 2px solid;
+  /* color: #989898; */
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.show-more-btn {
+  margin-bottom: 20px;
+  background: none;
+  border: none;
+  color: #3457d5;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0;
+  cursor: pointer;
+}

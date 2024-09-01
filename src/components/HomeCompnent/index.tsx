@@ -1,10 +1,10 @@
-import BlogPostForm from "../BlogPostForm";
+import BlogHeroSection from "../BlogHeroSection";
 import DisplayBlogPosts from "../DisplayBlogPosts";
 
 const HomeComponent = () => {
   return (
     <>
-      <BlogPostForm />
+      <BlogHeroSection />
       <DisplayBlogPosts />
     </>
   );

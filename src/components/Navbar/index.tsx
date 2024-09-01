@@ -5,7 +5,6 @@ import "./Navbar.css";
 const Navbar = () => {
   const location = useLocation();
 
-  console.log("location", location);
   return (
     <nav className="container navbar-container">
       <div

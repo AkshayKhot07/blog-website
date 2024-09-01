@@ -1,0 +1,41 @@
+.blog-hsp-card-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0px;
+}
+
+.blog-hsp-card {
+  border: 2px solid #d8d8d8;
+  border-radius: 5px;
+  display: flex;
+}
+
+.blog-hsp-card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.blog-hsp-card-content-category {
+  color: #03c03c;
+  font-weight: 700;
+}
+
+.blog-hsp-card-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #505050;
+  padding: 0px 50px;
+  color: #ffffff;
+}
+
+.blog-hsp-details,
+.blog-hsp-details:hover,
+.blog-hsp-details:focus {
+  text-decoration: none;
+  color: #3457d5;
+  font-weight: 600;
+  font-size: 14px;
+}
