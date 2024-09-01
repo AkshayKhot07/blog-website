@@ -1,0 +1,39 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0px;
+  border-bottom: 1px solid lightgray;
+}
+
+.nav-sub {
+  color: #606060;
+}
+
+.nav-title {
+  color: #202020;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.nav-title a {
+  text-decoration: none;
+  color: #202020;
+}
+
+.nav-create-post button {
+  border: 1px solid #3457d5;
+  color: #3457d5;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.nav-create-post button:hover {
+  background-color: #3457d5;
+  color: white;
+  border: none;
+}
