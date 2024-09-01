@@ -7,7 +7,7 @@ const PostsByYearAndMonth = ({ posts }: { posts: CategorizedPosts }) => {
       {Object.entries(posts).map(([year, months]) => (
         <div key={year}>
           <h4>{year}</h4>
-          {Object.entries(months).map(([month, posts]) => (
+          {Object.entries(months).map(([month]) => (
             <div key={month}>
               <a
                 href={`/blog/timeline/${year}/${month}`}
