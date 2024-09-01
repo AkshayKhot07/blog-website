@@ -1,4 +1,10 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { blogPostsDummyData } from "../../constants/data";
 
 export type BlogPostType = {
@@ -23,10 +29,22 @@ const BlogPostsContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const state = useState<BlogPostType[]>(blogPostsDummyData);
+  const [blogPosts, setBlogPosts] = useState<BlogPostType[]>(() => {
+    const storedPosts = localStorage.getItem("blogPosts");
+    if (storedPosts && storedPosts.length > 0) {
+      return JSON.parse(storedPosts) as BlogPostType[];
+    } else {
+      return blogPostsDummyData;
+    }
+  });
+
+  // Update localStorage whenever blogPosts changes
+  useEffect(() => {
+    localStorage.setItem("blogPosts", JSON.stringify(blogPosts));
+  }, [blogPosts]);
 
   return (
-    <BlogPostsContext.Provider value={state}>
+    <BlogPostsContext.Provider value={[blogPosts, setBlogPosts]}>
       {children}
     </BlogPostsContext.Provider>
   );
