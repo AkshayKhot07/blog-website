@@ -4,3 +4,10 @@
   margin-top: 20px;
   gap: 20px;
 }
+
+@media screen and (max-width: 500px) {
+  .blog-category-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 20px;
+  }
+}

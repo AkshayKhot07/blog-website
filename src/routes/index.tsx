@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import BlogPostForm from "../components/BlogPostForm";
+import NotFound from "../components/NotFound";
 import { PrivateOutlet } from "../components/PrivateOutlet";
 import BlogCategoryPosts from "../pages/blog-category-posts";
 import BlogPostDetails from "../pages/blog-post-details";
@@ -18,6 +19,7 @@ const Router = () => {
           path="blog/timeline/:year/:month"
           element={<BlogTimeLinePosts />}
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

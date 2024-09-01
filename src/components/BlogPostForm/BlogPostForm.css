@@ -85,3 +85,23 @@
 .mb-6 {
   margin-bottom: 1.5rem;
 }
+
+@media screen and (max-width: 500px) {
+  .form-wrapper {
+    flex-direction: column;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 501px) and (max-width: 1240px) {
+  .form-wrapper {
+    flex-direction: column;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+}

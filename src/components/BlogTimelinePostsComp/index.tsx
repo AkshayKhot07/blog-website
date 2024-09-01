@@ -11,9 +11,7 @@ const BlogTimeLinePostsComp = () => {
 
   const context = useContext(BlogPostsContext);
   if (!context) {
-    throw new Error(
-      "DisplayBlogPosts must be used within a BlogPostsContextProvider"
-    );
+    throw new Error("Context is null or undefined");
   }
   const [blogPosts] = context;
 

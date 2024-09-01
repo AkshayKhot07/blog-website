@@ -11,3 +11,13 @@
   flex: 1;
   margin-top: 20px;
 }
+
+@media screen and (max-width: 500px) {
+  .blog-home-midsec {
+    flex-direction: column;
+  }
+
+  .blog-home-midsec-months {
+    margin-top: 0px;
+  }
+}

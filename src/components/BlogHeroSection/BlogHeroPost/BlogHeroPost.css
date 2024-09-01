@@ -1,6 +1,7 @@
 .blog-hero-post-container {
   padding: 30px;
   background-color: #383838;
+  border-radius: 5px;
 }
 
 .bg-hp-card {
@@ -29,4 +30,16 @@
 
 .blog-hp-details p {
   color: #ffffff;
+}
+
+@media screen and (max-width: 500px) {
+  .bg-hp-card {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 501px) and (max-width: 1240px) {
+  .bg-hp-card {
+    width: 100%;
+  }
 }

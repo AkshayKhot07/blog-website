@@ -9,9 +9,7 @@ import "./BlogHeroSecPosts.css";
 const BlogHeroSecPosts = () => {
   const context = useContext(BlogPostsContext);
   if (!context) {
-    throw new Error(
-      "BlogPostForm must be used within a BlogPostsContextProvider"
-    );
+    throw new Error("Context is null or undefined");
   }
   const [blogPosts] = context;
 

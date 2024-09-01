@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { blogCategoryList } from "../../constants/data";
 import { BlogPostsContext } from "../../context/BlogPostsContext";
 import { createSlug } from "../../utils/createSlug";
 import "./BlogPostForm.css";
-
 interface FormInitialValuesTypes {
   title: string;
   author: string;
@@ -13,6 +13,15 @@ interface FormInitialValuesTypes {
   content: string;
   category: string;
   slug: string;
+}
+
+interface FormErrors {
+  title?: string;
+  author?: string;
+  date?: string;
+  desp?: string;
+  content?: string;
+  category?: string;
 }
 
 const formInitialValues = {
@@ -30,18 +39,20 @@ const BlogPostForm = () => {
   const navigate = useNavigate();
 
   if (!context) {
-    throw new Error(
-      "BlogPostForm must be used within a BlogPostsContextProvider"
-    );
+    throw new Error("Context is null or undefined");
   }
   const [blogPosts, setBlogPosts] = context;
 
   const [formData, setFormData] =
     useState<FormInitialValuesTypes>(formInitialValues);
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -49,13 +60,17 @@ const BlogPostForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newErrors = validateForm(formData);
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Form submitted successfully!");
+      toast.success("Form submitted successfully!", {
+        duration: 4000,
+        position: "top-center",
+      });
+      // console.log("Form submitted successfully!");
       setBlogPosts([
         ...blogPosts,
         { ...formData, slug: createSlug(formData.title) },
@@ -63,12 +78,13 @@ const BlogPostForm = () => {
       navigate("/");
       setFormData(formInitialValues);
     } else {
-      console.log("Form submission failed due to validation errors.");
+      toast.error("Form submission failed due to validation errors.");
+      console.error("Form submission failed due to validation errors.");
     }
   };
 
-  const validateForm = (data) => {
-    const errors = {};
+  const validateForm = (data: FormInitialValuesTypes): FormErrors => {
+    const errors: FormErrors = {};
 
     if (!data.title.trim()) {
       errors.title = "Title is required";
