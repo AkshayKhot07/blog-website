@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { BlogPostsContext } from "../../context/BlogPostsContext";
 import { categorizePostsByYearAndMonth } from "../../utils/categorizePostsByMonths";
 import { getPostsByYearAndMonth } from "../../utils/getPostsByYearAndMonth";
+import { getYearsAndMonths } from "../../utils/getYearsAndMonths";
 import { BlogHeroSecPostsCard } from "../BlogHeroSection/BlogHeroSecPosts";
+import NotFound from "../NotFound";
 import "./BlogTimelinePostsComp.css";
 
 const BlogTimeLinePostsComp = () => {
@@ -17,6 +19,12 @@ const BlogTimeLinePostsComp = () => {
 
   const blogPostsByYearAndMonth = categorizePostsByYearAndMonth(blogPosts);
 
+  const { years: getYearsFromPosts, months: getMonthsFromPosts } =
+    getYearsAndMonths(blogPostsByYearAndMonth);
+
+  const isYearPresent = getYearsFromPosts.includes(String(year));
+  const isMonthPresent = getMonthsFromPosts.includes(String(month));
+
   const currYearAndMonthBlogPosts = getPostsByYearAndMonth({
     posts: blogPostsByYearAndMonth,
     year: year || "",
@@ -24,13 +32,18 @@ const BlogTimeLinePostsComp = () => {
   });
 
   return (
-    <div className="blog-post-timeline-grid">
-      {currYearAndMonthBlogPosts &&
-        currYearAndMonthBlogPosts?.length > 0 &&
-        currYearAndMonthBlogPosts?.map((post) => (
-          <BlogHeroSecPostsCard key={post.slug} post={post} />
-        ))}
-    </div>
+    <>
+      <div className="blog-post-timeline-grid">
+        {isYearPresent &&
+          isMonthPresent &&
+          currYearAndMonthBlogPosts &&
+          currYearAndMonthBlogPosts?.length > 0 &&
+          currYearAndMonthBlogPosts?.map((post) => (
+            <BlogHeroSecPostsCard key={post.slug} post={post} />
+          ))}
+      </div>
+      {(!isYearPresent || !isMonthPresent) && <NotFound />}
+    </>
   );
 };
 

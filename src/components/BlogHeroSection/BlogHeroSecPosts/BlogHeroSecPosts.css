@@ -41,6 +41,11 @@
   font-size: 14px;
 }
 
+.blog-hsp-card-date {
+  color: #a9a9a9;
+  font-size: 14px;
+}
+
 @media screen and (max-width: 500px) {
   .blog-hsp-card-container {
     flex-direction: column;

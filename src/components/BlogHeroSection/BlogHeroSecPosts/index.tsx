@@ -45,7 +45,7 @@ export const BlogHeroSecPostsCard = ({ post }: { post: BlogPostType }) => {
         </a>
         <div>
           <h4>{post.title}</h4>
-          <p>{formatDateString(post.date)}</p>
+          <p className="blog-hsp-card-date">{formatDateString(post.date)}</p>
         </div>
         <p>{post.desp}</p>
         <a href={`/blog/${post.slug}`} className="blog-hsp-details">
