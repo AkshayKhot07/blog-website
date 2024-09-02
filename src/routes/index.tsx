@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import BlogPostForm from "../components/BlogPostForm";
 import NotFound from "../components/NotFound";
 import { PrivateOutlet } from "../components/PrivateOutlet";
@@ -7,27 +7,22 @@ import BlogPostDetails from "../pages/blog-post-details";
 import BlogTimeLinePosts from "../pages/blog-timeline-posts";
 import Home from "../pages/home";
 
-const routes = [
-  {
-    path: "/",
-    element: <PrivateOutlet />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "blog/:id", element: <BlogPostDetails /> },
-      { path: "blog/create-post", element: <BlogPostForm /> },
-      { path: "blog/category/:category", element: <BlogCategoryPosts /> },
-      { path: "blog/timeline/:year/:month", element: <BlogTimeLinePosts /> },
-      { path: "*", element: <NotFound /> },
-    ],
-  },
-];
-
-const router = createBrowserRouter(routes, {
-  basename: import.meta.env.BASE_URL,
-});
-
 const Router = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <Routes>
+      <Route path="/" element={<PrivateOutlet />}>
+        <Route index element={<Home />} />
+        <Route path="blog/:id" element={<BlogPostDetails />} />
+        <Route path="blog/create-post" element={<BlogPostForm />} />
+        <Route path="blog/category/:category" element={<BlogCategoryPosts />} />
+        <Route
+          path="blog/timeline/:year/:month"
+          element={<BlogTimeLinePosts />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default Router;
